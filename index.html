@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Fake Jailbreak Tool</title>
+    <title>palera1n</title>
     <style>
         :root {
             --bg-color: #000000;
@@ -11,15 +11,14 @@
             --text-primary: #ffffff;
             --text-secondary: #8e8e93;
             --accent-color: #0a84ff;
-            --accent-hover: #0071e3;
-            --border-color: #38383a;
+            --border-color: #2c2c2e;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", sans-serif;
             -webkit-font-smoothing: antialiased;
         }
 
@@ -29,245 +28,262 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
+            height: 100vh;
             overflow: hidden;
         }
 
-        .app-container {
+        .container {
             width: 100%;
-            max-width: 428px;
-            height: 100vh;
-            max-height: 926px;
-            background-color: var(--bg-color);
+            max-width: 400px;
+            height: 100%;
+            max-height: 844px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 24px 20px 40px 20px;
-            position: relative;
-            overflow-y: auto;
+            padding: 30px 20px 40px 20px;
         }
 
-        /* Header Section */
         .header {
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin-top: 40px;
-            text-align: center;
+            margin-top: 20px;
         }
 
-        .logo-container {
-            width: 96px;
-            height: 96px;
-            border-radius: 22px;
+        .logo {
+            width: 88px;
+            height: 88px;
+            border-radius: 20px;
             overflow: hidden;
             margin-bottom: 16px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+            border: 0.5px solid rgba(255,255,255,0.15);
         }
 
-        .logo-container img {
+        .logo img {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Forces 1:1 square crop behavior */
+            object-fit: cover;
         }
 
-        .app-title {
-            font-size: 28px;
+        .title {
+            font-size: 24px;
             font-weight: 700;
-            letter-spacing: 0.35px;
-            margin-bottom: 6px;
+            letter-spacing: -0.4px;
         }
 
-        .app-subtitle {
-            font-size: 15px;
+        .subtitle {
+            font-size: 14px;
             color: var(--text-secondary);
-            font-weight: 400;
+            margin-top: 4px;
         }
 
-        /* Device Info Card */
-        .info-card {
+        .status-card {
             background-color: var(--card-bg);
-            border-radius: 14px;
+            border-radius: 12px;
             padding: 16px;
-            margin: 20px 0;
             display: flex;
             flex-direction: column;
             gap: 12px;
+            border: 0.5px solid var(--border-color);
         }
 
-        .info-row {
+        .status-row {
             display: flex;
             justify-content: space-between;
-            font-size: 14px;
+            font-size: 13px;
         }
 
-        .info-label {
+        .status-label {
             color: var(--text-secondary);
         }
 
-        .info-value {
-            color: var(--text-primary);
+        .status-val {
             font-weight: 500;
+            color: var(--text-primary);
         }
 
-        /* Console Log Box */
-        .console-box {
-            background-color: #0c0c0e;
-            border: 1px solid var(--border-color);
+        .console {
+            background-color: #08080a;
+            border: 0.5px solid var(--border-color);
             border-radius: 12px;
-            height: 160px;
+            height: 220px;
             padding: 12px;
             overflow-y: auto;
             font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-            font-size: 12px;
-            color: #30d158;
-            margin-bottom: 20px;
+            font-size: 11px;
+            line-height: 1.4;
+            color: #d1d1d6;
             display: flex;
             flex-direction: column;
-            gap: 4px;
+            gap: 2px;
         }
 
         .console-line {
             word-break: break-all;
+            white-space: pre-wrap;
         }
 
-        .console-line.dim {
-            color: var(--text-secondary);
+        .options-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
         }
 
-        .console-line.error {
-            color: #ff453a;
+        .option-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: var(--card-bg);
+            padding: 12px 16px;
+            border-radius: 10px;
+            font-size: 14px;
+            border: 0.5px solid var(--border-color);
         }
 
-        /* Action Button */
-        .action-button {
+        .option-item input[type="checkbox"] {
+            transform: scale(1.1);
+            accent-color: var(--accent-color);
+            cursor: pointer;
+        }
+
+        .btn {
             width: 100%;
             background-color: var(--accent-color);
             color: white;
             border: none;
             border-radius: 14px;
             padding: 16px;
-            font-size: 17px;
+            font-size: 16px;
             font-weight: 600;
             cursor: pointer;
-            transition: background-color 0.2s, opacity 0.2s;
-            text-align: center;
+            transition: opacity 0.2s;
         }
 
-        .action-button:active {
-            background-color: var(--accent-hover);
-            transform: scale(0.98);
+        .btn:active {
+            opacity: 0.7;
         }
 
-        .action-button:disabled {
-            background-color: #3a3a3c;
+        .btn:disabled {
+            background-color: #2c2c2e;
             color: var(--text-secondary);
             cursor: not-allowed;
-            transform: none;
-        }
-
-        /* Footer info */
-        .footer-text {
-            text-align: center;
-            font-size: 12px;
-            color: var(--text-secondary);
-            margin-top: 12px;
         }
     </style>
 </head>
 <body>
 
-    <div class="app-container">
-        <!-- Header / Logo -->
+    <div class="container">
         <div class="header">
-            <div class="logo-container">
-                <!-- Uses IMG_1379.jpeg with 1:1 square crop handling via object-fit -->
-                <img src="IMG_1379.jpeg" alt="App Logo" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'96\' height=\'96\'><rect width=\'96\' height=\'96\' fill=\'%23333\'/><text x=\'50%\' y=\'50%\' fill=\'%23fff\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-family=\'sans-serif\' font-size=\'14\'>LOGO</text></svg>'">
+            <div class="logo">
+                <img src="IMG_1379.jpeg" alt="palera1n" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'88\' height=\'88\'><rect width=\'88\' height=\'88\' fill=\'%231c1c1e\'/><text x=\'50%\' y=\'50%\' fill=\'%238e8e93\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-family=\'sans-serif\' font-size=\'12\'>LOGO</text></svg>'">
             </div>
-            <h1 class="app-title">Palera1n-ish</h1>
-            <p class="app-subtitle">Semi-tethered simulation utility</p>
+            <div class="title">palera1n</div>
+            <div class="subtitle">iOS 15.0 - 17.4 (checkm8)</div>
         </div>
 
-        <!-- System Configuration Details -->
-        <div class="info-card">
-            <div class="info-row">
-                <span class="info-label">Device Model</span>
-                <span class="info-value" id="device-model">iPhone (iOS Simulator)</span>
+        <div class="status-card">
+            <div class="status-row">
+                <span class="status-label">Device</span>
+                <span class="status-val" id="device-type">iPhone10,6 (D22AP)</span>
             </div>
-            <div class="info-row">
-                <span class="info-label">OS Version</span>
-                <span class="info-value">17.5.1 (Mocked)</span>
+            <div class="status-row">
+                <span class="status-label">ECID</span>
+                <span class="status-val">0x3E84F1B9C20A</span>
             </div>
-            <div class="info-row">
-                <span class="info-label">Exploit Status</span>
-                <span class="info-value" id="exploit-status" style="color: #ff453a;">Not Exploited</span>
+            <div class="status-row">
+                <span class="status-label">CPU Architecture</span>
+                <span class="status-val">arm64e (A11)</span>
+            </div>
+            <div class="status-row">
+                <span class="status-label">State</span>
+                <span class="status-val" id="jailbreak-state" style="color: #ff453a;">Unrestricted/DFU Req.</span>
             </div>
         </div>
 
-        <!-- Fake Terminal Logs -->
-        <div class="console-box" id="console-box">
-            <div class="console-line dim">> Ready to initialize environment.</div>
-            <div class="console-line dim">> Waiting for user interaction...</div>
+        <div class="options-group">
+            <label class="option-item">
+                <span>Rootful Mode</span>
+                <input type="checkbox" id="rootful-toggle">
+            </label>
+            <label class="option-item">
+                <span>Skip Setup (Safe)</span>
+                <input type="checkbox" id="skip-setup" checked>
+            </label>
         </div>
 
-        <!-- Trigger Button -->
-        <div>
-            <button class="action-button" id="jailbreak-btn" onclick="startFakeProcess()">Start Process</button>
-            <p class="footer-text">For entertainment and interface demonstration purposes only.</p>
+        <div class="console" id="console-output">
+            <span class="console-line" style="color: #8e8e93;">[i] Waiting for connection over usbmux...</span>
+            <span class="console-line" style="color: #8e8e93;">[i] Ready. Ensure device is connected via USB.</span>
         </div>
+
+        <button class="btn" id="action-btn" onclick="runProcess()">Start</button>
     </div>
 
     <script>
-        const logs = [
-            "Initializing kernel bridge...",
-            "Checking device architecture (arm64e)...",
-            "Bypassing trust cache policies...",
-            "Injecting payload descriptors into launchd...",
-            "Allocating kernel memory blocks...",
-            "Triggering memory corruption routine...",
-            "Attempting bridge elevation to root...",
-            "Remounting root filesystem as read-write...",
-            "Generating system tokens...",
-            "Cleaning up temporary diagnostic files...",
-            "Process completed successfully. (Fake state)"
+        const logsSequence = [
+            { text: "[*] Starting palera1n v2.0.1 (JSON Bridge)...", color: "#ffffff", delay: 400 },
+            { text: "[*] Connecting to lockdownd service...", color: "#ffffff", delay: 600 },
+            { text: "[*] Identifying product type: iPhone10,6", color: "#ffffff", delay: 500 },
+            { text: "[*] Getting iOS build version configuration...", color: "#ffffff", delay: 400 },
+            { text: "[*] Checking bootrom exploit vector (checkm8)...", color: "#0a84ff", delay: 800 },
+            { text: "[*] Sending control transfer to device in normal mode...", color: "#ffffff", delay: 600 },
+            { text: "[!] Please put your device into DFU mode:", color: "#ff9f0a", delay: 700 },
+            { text: "[info] Holding Side Button and Volume Down (3s)...", color: "#8e8e93", delay: 1000 },
+            { text: "[info] Releasing Side Button, maintaining Volume Down (10s)...", color: "#8e8e93", delay: 1200 },
+            { text: "[*] DFU mode interface acquired successfully.", color: "#30d158", delay: 600 },
+            { text: "[*] Exploiting SecureROM via checkm8 vulnerability...", color: "#0a84ff", delay: 1000 },
+            { text: "[*] Uploading custom secondary payload (iBSS)...", color: "#ffffff", delay: 800 },
+            { text: "[*] Executing payload vector inside SRAM...", color: "#ffffff", delay: 700 },
+            { text: "[*] Uploading iBEC and patching kernel structures...", color: "#ffffff", delay: 900 },
+            { text: "[*] Booting kernel cache with boot-args...", color: "#ffffff", delay: 800 },
+            { text: "[*] Establishing bind shell / kernel patchset pipeline...", color: "#ffffff", delay: 700 },
+            { text: "[*] Remounting root filesystem mount points...", color: "#ffffff", delay: 600 },
+            { text: "[+] Done! Device should now be booting via custom kernel.", color: "#30d158", delay: 200 }
         ];
 
-        function startFakeProcess() {
-            const btn = document.getElementById('jailbreak-btn');
-            const consoleBox = document.getElementById('console-box');
-            const statusLabel = document.getElementById('exploit-status');
+        function runProcess() {
+            const btn = document.getElementById('action-btn');
+            const consoleBox = document.getElementById('console-output');
+            const stateLabel = document.getElementById('jailbreak-state');
 
             btn.disabled = true;
-            btn.innerText = "Running...";
-            statusLabel.innerText = "Exploiting...";
-            statusLabel.style.color = "#ff9f0a";
+            btn.innerText = "Processing...";
+            stateLabel.innerText = "Executing exploit...";
+            stateLabel.style.color = "#ff9f0a";
 
-            consoleBox.innerHTML = '<div class="console-line">> Starting routine sequence...</div>';
+            consoleBox.innerHTML = '';
 
-            let index = 0;
-            const interval = setInterval(() => {
-                if (index < logs.length) {
-                    const div = document.createElement('div');
-                    div.className = "console-line";
-                    div.innerText = "> " + logs[index];
-                    consoleBox.appendChild(div);
+            let currentStep = 0;
+
+            function processNextLog() {
+                if (currentStep < logsSequence.length) {
+                    const log = logsSequence[currentStep];
+                    const span = document.createElement('span');
+                    span.className = 'console-line';
+                    span.innerText = log.text;
+                    span.style.color = log.color;
+                    consoleBox.appendChild(span);
                     consoleBox.scrollTop = consoleBox.scrollHeight;
-                    index++;
+
+                    const delay = log.delay;
+                    currentStep++;
+                    setTimeout(processNextLog, delay);
                 } else {
-                    clearInterval(interval);
                     btn.innerText = "Done";
-                    statusLabel.innerText = "Ready (Mocked)";
-                    statusLabel.style.color = "#30d158";
+                    stateLabel.innerText = "Booted (jailbroken)";
+                    stateLabel.style.color = "#30d158";
                     
-                    const successDiv = document.createElement('div');
-                    successDiv.className = "console-line";
-                    successDiv.style.color = "#0a84ff";
-                    successDiv.innerText = "> All operations finished safely. No system modifications were made.";
-                    consoleBox.appendChild(successDiv);
+                    const finalSpan = document.createElement('span');
+                    finalSpan.className = 'console-line';
+                    finalSpan.style.color = "#30d158";
+                    finalSpan.innerText = "[*] Process execution complete.";
+                    consoleBox.appendChild(finalSpan);
                     consoleBox.scrollTop = consoleBox.scrollHeight;
                 }
-            }, 600);
+            }
+
+            setTimeout(processNextLog, 300);
         }
     </script>
 </body>
