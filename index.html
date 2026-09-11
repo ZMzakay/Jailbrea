@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>zmzakay's Deep Sea Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ocean-dark: #020813;
+            --ocean-deep: #051326;
+            --card-bg: rgba(7, 22, 43, 0.65);
+            --text-primary: #e0f2fe;
+            --text-secondary: #7dd3fc;
+            --glow-cyan: #06b6d4;
+            --glow-blue: #38bdf8;
+            --glow-violet: #818cf8;
+            --border-ocean: rgba(56, 189, 248, 0.2);
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--ocean-dark);
+            background-image: 
+                radial-gradient(circle at 15% 20%, rgba(6, 182, 212, 0.15) 0%, transparent 45%),
+                radial-gradient(circle at 85% 75%, rgba(129, 140, 248, 0.12) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(56, 189, 248, 0.08) 0%, transparent 60%);
+            background-attachment: fixed;
+            color: var(--text-primary);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Compact Ocean Header */
+        header {
+            background: rgba(2, 8, 19, 0.85);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-ocean);
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(2, 8, 19, 0.8);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.25rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, var(--glow-cyan), var(--glow-blue), var(--glow-violet));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.3px;
+            filter: drop-shadow(0 0 10px rgba(6, 182, 212, 0.4));
+        }
+
+        /* Navigation Tabs */
+        nav {
+            display: flex;
+            gap: 0.4rem;
+        }
+
+        .tab-btn {
+            background: rgba(6, 182, 212, 0.04);
+            border: 1px solid var(--border-ocean);
+            color: var(--text-secondary);
+            padding: 0.35rem 0.85rem;
+            border-radius: 16px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .tab-btn:hover {
+            color: var(--text-primary);
+            border-color: var(--glow-cyan);
+            background: rgba(6, 182, 212, 0.1);
+            box-shadow: 0 0 12px rgba(6, 182, 212, 0.25);
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, #0284c7, #06b6d4);
+            color: #ffffff;
+            border-color: transparent;
+            box-shadow: 0 0 15px rgba(6, 182, 212, 0.5);
+        }
+
+        main {
+            flex: 1;
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        /* Oceanic fade animation */
+        .tab-content {
+            display: none;
+            animation: oceanFade 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes oceanFade {
+            from { opacity: 0; transform: translateY(12px) scale(0.99); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        section {
+            background-color: var(--card-bg);
+            backdrop-filter: blur(24px);
+            border: 1px solid var(--border-ocean);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--glow-cyan), transparent);
+            opacity: 0.6;
+        }
+
+        h2 {
+            margin-top: 0;
+            color: var(--text-primary);
+            border-bottom: 1px solid var(--border-ocean);
+            padding-bottom: 0.6rem;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        ul {
+            padding-left: 20px;
+            color: var(--text-secondary);
+        }
+
+        li {
+            margin-bottom: 0.6rem;
+        }
+
+        li strong {
+            color: var(--text-primary);
+        }
+
+        a {
+            color: var(--glow-blue);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        a:hover {
+            color: var(--glow-cyan);
+            text-decoration: underline;
+            text-shadow: 0 0 8px rgba(6, 182, 212, 0.4);
+        }
+
+        /* Info Tab Image Styling */
+        .info-container {
+            text-align: center;
+        }
+
+        .info-container p {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .info-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            border: 1px solid var(--border-ocean);
+            box-shadow: 0 8px 30px rgba(6, 182, 212, 0.2);
+        }
+
+        /* Calculator Styles */
+        .calculator {
+            max-width: 300px;
+            margin: 0 auto;
+            background: rgba(2, 8, 19, 0.5);
+            border: 1px solid var(--border-ocean);
+            border-radius: 16px;
+            padding: 1.2rem;
+            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.6);
+        }
+
+        #calc-display {
+            width: 100%;
+            height: 55px;
+            background-color: #010409;
+            border: 1px solid var(--border-ocean);
+            border-radius: 10px;
+            color: var(--glow-cyan);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.6rem;
+            text-align: right;
+            padding: 0 0.8rem;
+            box-sizing: border-box;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            overflow-x: auto;
+            box-shadow: inset 0 0 10px rgba(6, 182, 212, 0.2);
+        }
+
+        .calc-buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+        }
+
+        .calc-btn {
+            background-color: rgba(6, 182, 212, 0.05);
+            border: 1px solid var(--border-ocean);
+            color: var(--text-primary);
+            font-size: 1.1rem;
+            padding: 12px 0;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .calc-btn:hover {
+            background-color: rgba(6, 182, 212, 0.15);
+            border-color: var(--glow-cyan);
+            box-shadow: 0 0 10px rgba(6, 182, 212, 0.3);
+        }
+
+        .calc-btn.operator {
+            background-color: rgba(2, 132, 199, 0.2);
+            color: var(--glow-blue);
+        }
+
+        .calc-btn.clear {
+            background-color: rgba(225, 29, 72, 0.2);
+            color: #fb7185;
+            border-color: rgba(225, 29, 72, 0.3);
+        }
+
+        /* Color Generator Styles */
+        .color-gen-container {
+            text-align: center;
+            max-width: 320px;
+            margin: 0 auto;
+        }
+
+        .color-box {
+            width: 100%;
+            height: 130px;
+            background-color: #06b6d4;
+            border-radius: 12px;
+            border: 1px solid var(--border-ocean);
+            margin-bottom: 1rem;
+            transition: background-color 0.5s ease;
+            box-shadow: 0 0 20px rgba(6, 182, 212, 0.25);
+        }
+
+        .color-code {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+
+        /* Live Clock Styles */
+        .clock-container {
+            text-align: center;
+            max-width: 350px;
+            margin: 0 auto;
+        }
+
+        .digital-clock {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 2.3rem;
+            font-weight: 700;
+            color: var(--glow-cyan);
+            background: rgba(1, 4, 9, 0.7);
+            border: 1px solid rgba(6, 182, 212, 0.3);
+            border-radius: 12px;
+            padding: 1.2rem;
+            margin-bottom: 0.8rem;
+            text-shadow: 0 0 15px rgba(6, 182, 212, 0.5);
+            box-shadow: inset 0 0 15px rgba(6, 182, 212, 0.1);
+        }
+
+        .date-display {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        .action-btn {
+            background: linear-gradient(135deg, #0284c7, #06b6d4);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            width: 100%;
+            box-shadow: 0 4px 15px rgba(6, 182, 212, 0.3);
+        }
+
+        .action-btn:hover {
+            opacity: 0.95;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(6, 182, 212, 0.5);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 1.5rem 1rem;
+            background: rgba(2, 8, 19, 0.9);
+            border-top: 1px solid var(--border-ocean);
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .gh-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(6, 182, 212, 0.05);
+            border: 1px solid var(--border-ocean);
+            padding: 6px 12px;
+            border-radius: 16px;
+            margin-top: 0.6rem;
+            color: var(--text-primary);
+            font-size: 0.8rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .gh-badge:hover {
+            border-color: var(--glow-cyan);
+            background: rgba(6, 182, 212, 0.1);
+            box-shadow: 0 0 10px rgba(6, 182, 212, 0.25);
+        }
+
+        .gh-badge svg {
+            width: 14px;
+            height: 14px;
+            fill: currentColor;
+        }
+
+        @media(max-width: 600px) {
+            header {
+                flex-direction: column;
+                gap: 0.5rem;
+                padding: 0.75rem 1rem;
+            }
+            nav {
+                width: 100%;
+                justify-content: center;
+                overflow-x: auto;
+                padding-bottom: 4px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>zmzakay's reef</h1>
+        <nav>
+            <button class="tab-btn active" onclick="switchTab(event, 'home-tab')">Home</button>
+            <button class="tab-btn" onclick="switchTab(event, 'calc-tab')">Calc</button>
+            <button class="tab-btn" onclick="switchTab(event, 'color-tab')">Colors</button>
+            <button class="tab-btn" onclick="switchTab(event, 'clock-tab')">Clock</button>
+            <button class="tab-btn" onclick="switchTab(event, 'info-tab')">Info</button>
+        </nav>
+    </header>
+
+    <main>
+        <!-- HOME TAB -->
+        <div id="home-tab" class="tab-content active">
+            <section>
+                <h2>Deep Sea Sanctuary</h2>
+                <p>Welcome to my bioluminescent underwater hub designed by <strong>zmzakay</strong>. Explore fluid fades, glowing aesthetics, and built-in interactive modules.</p>
+            </section>
+
+            <section>
+                <h2>Reef Modules</h2>
+                <ul>
+                    <li><strong>Calc:</strong> Ocean-themed math assistant utility.</li>
+                    <li><strong>Colors:</strong> Aquatic palette & random hex generator.</li>
+                    <li><strong>Clock:</strong> Real-time ticking digital tracker.</li>
+                    <li><strong>Info:</strong> Insights based straight from my mind.</li>
+                    <li><strong>GitHub Profile:</strong> Check out my repositories at <a href="https://github.com/zmzakay" target="_blank">@zmzakay</a></li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>Connect</h2>
+                <p>Swim back to my repositories on GitHub: <a href="https://github.com/zmzakay" target="_blank">@zmzakay</a></p>
+            </section>
+        </div>
+
+        <!-- CALCULATOR TAB -->
+        <div id="calc-tab" class="tab-content">
+            <section>
+                <h2>Calculator</h2>
+                <div class="calculator">
+                    <div id="calc-display">0</div>
+                    <div class="calc-buttons">
+                        <button class="calc-btn clear" onclick="clearDisplay()">C</button>
+                        <button class="calc-btn operator" onclick="appendValue('/')">/</button>
+                        <button class="calc-btn operator" onclick="appendValue('*')">×</button>
+                        <button class="calc-btn operator" onclick="appendValue('-')">-</button>
+                        
+                        <button class="calc-btn" onclick="appendValue('7')">7</button>
+                        <button class="calc-btn" onclick="appendValue('8')">8</button>
+                        <button class="calc-btn" onclick="appendValue('9')">9</button>
+                        <button class="calc-btn operator" onclick="appendValue('+')">+</button>
+                        
+                        <button class="calc-btn" onclick="appendValue('4')">4</button>
+                        <button class="calc-btn" onclick="appendValue('5')">5</button>
+                        <button class="calc-btn" onclick="appendValue('6')">6</button>
+                        <button class="calc-btn operator" onclick="calculate()" style="grid-row: span 2; height: 100%;">=</button>
+                        
+                        <button class="calc-btn" onclick="appendValue('1')">1</button>
+                        <button class="calc-btn" onclick="appendValue('2')">2</button>
+                        <button class="calc-btn" onclick="appendValue('3')">3</button>
+                        
+                        <button class="calc-btn" onclick="appendValue('0')" style="grid-column: span 2;">0</button>
+                        <button class="calc-btn" onclick="appendValue('.')">.</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- RANDOM COLOR GENERATOR TAB -->
+        <div id="color-tab" class="tab-content">
+            <section>
+                <h2>Bioluminescent Color Generator</h2>
+                <div class="color-gen-container">
+                    <div id="colorBox" class="color-box"></div>
+                    <div id="colorCode" class="color-code">#06b6d4</div>
+                    <button class="action-btn" onclick="generateColor()">Generate New Reef Color</button>
+                </div>
+            </section>
+        </div>
+
+        <!-- LIVE CLOCK TAB -->
+        <div id="clock-tab" class="tab-content">
+            <section>
+                <h2>Tidal Clock</h2>
+                <div class="clock-container">
+                    <div id="digitalClock" class="digital-clock">00:00:00</div>
+                    <div id="dateDisplay" class="date-display">Loading date...</div>
+                </div>
+            </section>
+        </div>
+
+        <!-- INFO TAB -->
+        <div id="info-tab" class="tab-content">
+            <section>
+                <h2>Based From My Mind</h2>
+                <div class="info-container">
+                    <p>Based from my mind</p>
+                    <img src="IMG_1379.jpeg" alt="Based from my mind visual file" class="info-image">
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 zmzakay. All rights reserved.</p>
+        <a class="gh-badge" href="https://pages.github.com/" target="_blank">
+            <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.22 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
+            Powered by GitHub Pages
+        </a>
+    </footer>
+
+    <script>
+        function switchTab(evt, tabId) {
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            evt.currentTarget.classList.add('active');
+        }
+
+        const display = document.getElementById('calc-display');
+        function appendValue(val) {
+            if (display.innerText === '0' && val !== '.') {
+                display.innerText = val;
+            } else {
+                display.innerText += val;
+            }
+        }
+        function clearDisplay() {
+            display.innerText = '0';
+        }
+        function calculate() {
+            try {
+                display.innerText = eval(display.innerText.replace('×', '*'));
+            } catch (error) {
+                display.innerText = 'Error';
+            }
+        }
+
+        function generateColor() {
+            const letters = '0123456789ABCDEF';
+            let color = '#';
+            for (let i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            document.getElementById('colorBox').style.backgroundColor = color;
+            document.getElementById('colorCode').innerText = color;
+        }
+
+        function updateClock() {
+            const now = new Date();
+            let hours = now.getHours();
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            
+            hours = hours % 12;
+            hours = hours ? hours : 12;
+            const formattedHours = String(hours).padStart(2, '0');
+
+            document.getElementById('digitalClock').innerText = `${formattedHours}:${minutes}:${seconds} ${ampm}`;
+
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('dateDisplay').innerText = now.toLocaleDateString(undefined, options);
+        }
+
+        setInterval(updateClock, 1000);
+        updateClock();
+    </script>
+</body>
+</html>
